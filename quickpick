@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lucky for life</title>
+</head>
+
+<body>
+	
+	<p>Enter 5 numbers from 1 to 48 and a lucky ball number 1 to 18:</p>
+
+	<form id="frm1" action="/action_page.php">
+ 		Enter 5 numbers: <input type="text" id="fiveNum"><br>
+  		Enter lucky ball: <input type="text" id="luckyBall"><br><br>
+  	<input type="button" onclick="payoutCalc()" value="Submit">
+	</form>
+	
+	<script>
+		
+		//payout calculator
+		function payoutCalc () {
+			var inputArray = [];
+			
+			var fiveNum = document.getElementById("fiveNum").value;
+			var luckyBall = document.getElementById("luckyBall").value;	
+			
+			inputArray = fiveNum.split(' ');
+			inputArray.push(luckyBall);
+			
+			document.write('Your Numbers: ')
+			for (var i = 0; i < inputArray.length; i++) {
+				document.write(inputArray[i] + ' ');
+			}
+			document.write('<br><br>');
+			
+			
+			
+			
+			
+			
+			
+			//create array with 6 random numbers and store in array
+			var randomArray = [];
+			var ranNum1;
+			var ranNum;
+			var i;
+			var j;
+		
+			ranNum1 = Math.floor(Math.random()*40 + 8);
+			randomArray[0] = ranNum1;
+		
+			for (i = 1; i < 5; i++) {
+				ranNum = Math.floor(Math.random()*40 + 8);
+				for (j = 0; j < randomArray.length; j++) {
+					if (ranNum == randomArray[j]) {
+						ranNum = Math.floor(Math.random()*40 + 8);
+					}
+				}
+				randomArray[i] = ranNum;
+			}
+		
+			var luckyNum = Math.floor(Math.random()*10 + 8);
+			randomArray[5] = luckyNum;
+		
+		
+			//display array using loop
+			for (i = 0; i < 6; i++) {
+				document.write(randomArray[i] + ' ');
+			}
+			//document.write('<br>');
+		
+			//sort numbers in array
+			document.write('<br>Numbers sorted: <br>')
+			randomArray.pop()
+			randomArray.sort(function(a, b){return a-b});
+			randomArray.push(luckyNum);
+		
+			//display again 
+			for (i = 0; i < 6; i++) {
+				document.write(randomArray[i] + ' ');
+			}
+			document.write('<br>');
+			
+			
+			
+			
+			
+			
+			
+			var numberOfMatch = 0;
+			var luckyBallMatch = false;
+			for (i = 0; i < 5; i++) {
+				for (j = 0; j < 5; j++) {
+					if (inputArray[i] == randomArray[j]) {
+						numberOfMatch += 1;
+					}
+				}	
+			}
+			
+			
+			if (inputArray[5] == luckyNum) {
+				luckyBallMatch = true;
+			}
+			
+			if (numberOfMatch == 0 && luckyBallMatch == true) {
+				document.write('You won $4!');
+			} else if (numberOfMatch == 1 && luckyBallMatch == true) {
+				document.write('You won $6!');
+			} else if (numberOfMatch == 2 && luckyBallMatch == false) {
+				document.write('You won $3!');
+			} else if (numberOfMatch == 2 && luckyBallMatch == true) {
+				document.write('You won $25!');
+			} else if (numberOfMatch == 3 && luckyBallMatch == false) {
+				document.write('You won $20!');
+			} else if (numberOfMatch == 3 && luckyBallMatch == true) {
+				document.write('You won $150!');
+			} else if (numberOfMatch == 4 && luckyBallMatch == false) {
+				document.write('You won $200!');
+			} else if (numberOfMatch == 4 && luckyBallMatch == true) {
+				document.write('You won $5,000!');
+			} else if (numberOfMatch == 5 && luckyBallMatch == false) {
+				document.write('You won $25,000 YEARLY for life!');
+			} else if (numberOfMatch == 5 && luckyBallMatch == true) {
+				document.write('You won $7,000 WEEKLY for life!');
+			} else {
+				document.write("Sorry. You didn't win anythings.")
+			}
+			
+		}
+		
+		
+		
+		
+		
+	</script>
+	
+	
+</body>
+	
+</html>
